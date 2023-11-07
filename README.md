@@ -17,4 +17,40 @@ This is because I put this in the ```function_app,py``` file:
     - Name (upper case)
     - Last name (upper case)
     - Birthday
+ - When you run the flask app, it will show up like this:
 
+<img width="500" alt="image" src="https://github.com/Helzheng123/flask_6_api_management/assets/123939070/ab09fd3f-aa38-4b66-a444-edb266440412">
+
+I placed this in the URL: ```hello?name=helen&lastname=zheng&birthday=October%20```
+
+## 2. Azure API deployment:
+ - In the Google Shell terminal, you will need to install [AZURE CLI](https://learn.microsoft.com/en-us/cli/azure/install-azure-cli-linux?pivots=apt) with this: ```curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash```. Copy and paste the line in and enter.
+ - Type in ```az login --use-device-code``` and wait for a link and a code to appear in the terminal. Copy the code and press the link to log in to your Azure account. This will help connect your Google Shell with your Azure account.
+ - Install ```sudo apt-get install azure-functions-core-tools-4``` in the terminal for azure functions core tools.
+ - Now input ```func init```.
+ - In your ```local.settings.json``` file, change the settings to this:
+```
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsFeatureFlags": "EnableWorkerIndexing",
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true"
+  }
+}
+```
+ - Install azure.functions with ```pip install azure.functions```
+ - In your ```function_app.py```, change the code to your code:
+```
+import azure.functions as func
+
+app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
+
+@app.function_name(name="HttpExample")
+@app.route(route="hello")
+def hello_get(req: func.HttpRequest) -> func.HttpResponse:
+    return func.HttpResponse("HttpExample function processed a request!")
+```
+ - Now to deploy the app, you will need to create a resource group, storage account, and a function app.
+   - For Resource group:
+   ``` az group create --name <put the resource group name here that you want to create>-rg --location <insert location; if you are US east put eastus>```
