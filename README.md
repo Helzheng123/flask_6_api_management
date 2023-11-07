@@ -53,4 +53,13 @@ def hello_get(req: func.HttpRequest) -> func.HttpResponse:
 ```
  - Now to deploy the app, you will need to create a resource group, storage account, and a function app.
    - For Resource group:
-   ``` az group create --name <put the resource group name here that you want to create>-rg --location <insert location; if you are US east put eastus>```
+   ```az group create --name <put the resource group name here that you want to create>-rg --location <insert location; if you are US east put eastus>```
+
+  - For Storage Account:
+  ```az storage account create --name <name of your storage account> --location <insert location; like the resource group> --resource-group <insert your resource group here> --sku Standard_LRS```
+  
+  - For Function App:
+  ```az functionapp create --resource-group <insert your resource group here>-rg --consumption-plan-location <insert your location> --runtime python --runtime-version 3.9 --functions-version 4 --name <create a name of your function app> --os-type linux --storage-account <put your storage account name>```
+
+- Now you can deploy your app: ```func azure functionapp publish <your function app name>```
+- Once the link appears, you have successfully deployed it! :smile:
