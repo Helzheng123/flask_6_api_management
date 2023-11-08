@@ -77,4 +77,7 @@ Now press on the GET and you will see this:
 
 
 ## 4. Complications:
-One complication I ran into was in the ```function_app.py``` file where the ```app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)``` was originally just ```app = func.FunctionApp()```. The Azure deployment did not work without the ANONYMOUS portion in the function app. This is due to credentials purposes. 
+One complication I ran into was in the ```function_app.py``` file where the ```app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)``` was originally just ```app = func.FunctionApp()```. The Azure deployment did not work without the ANONYMOUS portion in the function app. This is due to credentials purposes. Without the ANONYMOUS portion in the code, my azure endpoint URL came out to be:
+
+![image](https://github.com/Helzheng123/flask_6_api_management/assets/123939070/14478803-7458-4a50-9e9b-0b2bd82d9868)
+
