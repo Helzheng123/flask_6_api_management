@@ -53,6 +53,9 @@ def hello_get(req: func.HttpRequest) -> func.HttpResponse:
   ```az functionapp create --resource-group <insert your resource group here>-rg --consumption-plan-location <insert your location> --runtime python --runtime-version 3.9 --functions-version 4 --name <create a name of your function app> --os-type linux --storage-account <put your storage account name>```
 
 - Now you can deploy your app: ```func azure functionapp publish <your function app name>```
+- You should see something like this:
+ ![image](https://github.com/Helzheng123/flask_6_api_management/assets/123939070/bfe7f33f-b10b-467a-a521-b461e158b806)
+
 - Once the link appears, you have successfully deployed it! :smile:
 
 Link: https://helenapi.azurewebsites.net/api/hello
@@ -63,3 +66,15 @@ This is because I put this in the ```function_app,py``` file:
 
 <img width="500" alt="image" src="https://github.com/Helzheng123/flask_6_api_management/assets/123939070/06a29291-4753-490a-8db3-86114da4d45b">
 
+## 3. OpenAPI Specification and Documentation:
+For Flasgger, check out this [```app_flasgger.py```](https://github.com/Helzheng123/flask_6_api_management/blob/main/app_flasgger.py) file
+
+When you need to open Swagger, use your flask app URL, add in ```apidocs``` at the end of your application:
+![image](https://github.com/Helzheng123/flask_6_api_management/assets/123939070/22142b65-98a3-4b62-8d29-8a46c68eb338)
+
+Now press on the GET and you will see this:
+![image](https://github.com/Helzheng123/flask_6_api_management/assets/123939070/a5de1739-d2fa-47e4-9c37-e5cb9467335a)
+
+
+## 4. Complications:
+One complication I ran into was in the ```function_app.py``` file where the ```app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)``` was originally just ```app = func.FunctionApp()```. The Azure deployment did not work without the ANONYMOUS portion in the function app. This is due to credentials purposes. 
